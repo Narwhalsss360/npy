@@ -66,6 +66,29 @@ class TerminalApp:
             help_message += f'    {self.entry_marker}{command.name}{command.explanation} {command.callback}\n'
         print(help_message)
 
+    def ask(self, message) -> TerminalCallbackArgs:
+        raw = input(message)
+        statements = raw
+        statements = statements.strip()
+
+        if statements == '':
+            return None
+
+        args = statements.split('"')[1::2]
+        for index, quote in enumerate(args):
+            statements = statements.replace(f' "{quote}"', '')
+
+        statements = statements.split() 
+
+        flags = list()
+        for index, statement in enumerate(statements):
+            if statement.startswith(self.flag_delimiter):
+                flags.append(statement)
+            else:
+                args.append(statement)
+
+        return TerminalCallbackArgs(flags, args, raw)
+
     def get(self):
         raw = input(f'{self.title}{self.entry_marker}')
         statements = raw
