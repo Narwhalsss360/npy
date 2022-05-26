@@ -1,4 +1,5 @@
-from npy import terminal, npy
+import terminal
+import npy
 from time import sleep
 
 user_saved_items = dict()
