@@ -9,11 +9,11 @@ def clear(*args):
 def loading_bar(status, message = '', clear_on_each = False, fill_char = '=', todo_char = '.', head = '>'):
     if clear_on_each:
         clear()
-    
+
     if status == 0:
         print(f'{message}[>.......................] 0%')
         return
-    if status == 100:
+    if status > 99:
         print(f'{message}[========================] 100%')
         return
     if status > 96:
@@ -99,3 +99,7 @@ class TerminalApp:
             return
 
         self.show_error('Command does not exist in current context')
+
+    def start(self):
+        while True:
+            self.get()
